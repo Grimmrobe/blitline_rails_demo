@@ -23,7 +23,7 @@ end
 
 gem 'jquery-rails'
 
-gem "blitline", "~> 1.4.0"
+gem "blitline", "~> 2.0.1"
 gem "figaro", "~> 0.5.0" # Store S3 & Blitline credentials in one YAML file
 
 # To use ActiveModel has_secure_password

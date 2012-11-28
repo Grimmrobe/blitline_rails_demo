@@ -28,15 +28,23 @@ class Painting < ActiveRecord::Base
     end
 
     def blitline_job(original_image, bucket, key)
-      job = Blitline::Job.new(original_image) # Source file to manipulate
-      job.application_id = ENV['BLITLINE_APPLICATION_ID']
-      watermark_function = job.add_function("watermark", { :text => "oh hai" }) # Add a watermark
-      crop_large_function = watermark_function.add_function("resize_to_fill", { :width => 200, :height => 200 }) # Crop & resize image
-      crop_large_function.add_save("my_large_thumbnail", key, bucket)
-
       blitline_service = Blitline.new
-      blitline_service.jobs << job # Push job into service
-      res = blitline_service.post_jobs
-      return res
+      blitline_service.add_job_via_hash({ # New add job method in Blitline gem 2.0.1. Messy.
+        "application_id" => ENV['BLITLINE_APPLICATION_ID'],
+        "src" => original_image,
+        "functions" => [{
+            "name"   => "watermark", # watermark the image
+            "params" => { "text" => "oh hai" },
+            "functions" => [{
+                "name"   => "resize_to_fill", # resize after watermark
+                "params" => { "width" => 200, "height" => 200 },
+                "save"   => {
+                    "image_identifier" => "MY_CLIENT_ID", # Not sure what this is for
+                    "s3_destination"   => { "key" => key, "bucket" => bucket } # push to your S3 bucket
+                }
+            }]
+        }]
+      })
+      return blitline_service.post_jobs
     end
 end
