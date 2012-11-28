@@ -18,10 +18,10 @@ group :assets do
   # gem 'therubyracer', :platforms => :ruby
 
   gem 'uglifier', '>= 1.0.3'
-  gem 'jquery-fileupload-rails'
+  gem "jquery-fileupload-rails", "~> 0.3.5"
 end
 
-gem 'jquery-rails'
+gem "jquery-rails", "~> 2.1.4"
 
 gem "blitline", "~> 2.0.1"
 gem "figaro", "~> 0.5.0" # Store S3 & Blitline credentials in one YAML file
