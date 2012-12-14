@@ -1,6 +1,13 @@
 <h1><%= @painting.name %></h1>
 
-<p><%= image_tag @painting.image_url %></p>
+<h3>Original image:</h3>
+<%= image_tag @painting.img_ori %>
+
+<h3>Large version:</h3>
+<%= image_tag @painting.img_large %>
+
+<h3>Thumbnail version:</h3>
+<%= image_tag @painting.img_thumb %>
 
 <p>
   <%= link_to "Edit", edit_painting_path(@painting) %> |

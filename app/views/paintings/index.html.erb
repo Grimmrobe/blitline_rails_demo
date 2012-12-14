@@ -5,7 +5,7 @@
 </div>
 <div class="clear"></div>
 
-<%= s3_uploader_form post: paintings_url, as: "painting[image_url]" do %>
+<%= s3_uploader_form post: paintings_url, as: "painting[img_ori]" do %>
   <%= file_field_tag :file, multiple: true %>
 <% end %>
 
